@@ -26,4 +26,6 @@ block content
             each item in product.data.informations
               p.detail__information__item
                 strong.detail__information__item__title=item.informations_label
-                span.detail__information__item__description=item.information__description
+                span.detail__information__item__description=item.informations_description
+
+          a.detail__information__link(href=product.data.link_url.url target="_blank")=product.data['link-text']

@@ -1,31 +1,35 @@
 extends ../base.pug
 
 block variables
-  - var template = 'detail'
+	- var template = 'detail'
 
 block content
-  .detail
-    .detail__wrapper
-      figure.detail__media
-        img.detail__media__image(alt=product.data.image.alt src=product.data.image.url)
+	.detail
+		.detail__wrapper
+			figure.detail__media
+				img.detail__media__image(alt=product.data.image.alt src=product.data.image.url)
 
-      .detail__information
-        p.detail__information__collection=product.data.collection.data.title
-        h1.detail__information__title=product.data.title
+			.detail__information
+				p.detail__information__collection=` ${product.data.collection.data.title}`
+				h1.detail__information__title=product.data.title
 
-        .detail__information__content
-          .detail__information__highlights
-            each highlight in product.data.highlights
-              p.detail__information__hightlight
-                svg.detail__information__hightlight__icon
-                  use(xlink:href=`sprite-${highlight.highlights_icon.toLowerCase()}`)
+				.detail__information__content
+					.detail__information__highlights
+						each highlight in product.data.highlights
+							p.detail__information__hightlight
+								svg.detail__information__hightlight__icon
+									use(xlink:href=`sprite-${highlight.highlights_icon.toLowerCase()}`)
 
-                span.detail__information__hightlight__text=highlight.highlights_text
+								span.detail__information__hightlight__text!=highlight.highlights_text.replace(/\n/, '<br>')
 
-          .detail__information__list
-            each item in product.data.informations
-              p.detail__information__item
-                strong.detail__information__item__title=item.informations_label
-                span.detail__information__item__description=item.informations_description
+					.detail__information__list
+						each item in product.data.informations
+							p.detail__information__item
+								strong.detail__information__item__title=` ${item.informations_label}`
+								span.detail__information__item__description=item.informations_description
 
-          a.detail__information__link(href=product.data.link_url.url target="_blank")=product.data['link-text']
+					a.detail__information__link(href=product.data.link_url.url target="_blank")=product.data['link-text']
+
+		button.detail__button Close
+			svg.detail__button__icon(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 123.5 59.3" )
+				path(stroke="currentColor" fill="none" d="M61.7,59.3C27.7,59.3,0,46,0,29.7S27.7,0,61.7,0c34,0,61.7,13.3,61.7,29.7S95.8,59.3,61.7,59.3z")

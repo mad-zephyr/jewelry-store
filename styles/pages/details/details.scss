@@ -1,0 +1,122 @@
+.detail {
+	@extend %cover;
+  @extend %center;
+  background: $color-quicksand;
+  color: $color-white;
+}
+
+.detail__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 720px;
+}
+
+.detail__media {
+  height: 78.2rem;
+  width: 55.4rem;
+  position: relative;
+}
+
+.detail__media__image {
+  @extend %cover;
+
+  object-fit: cover;
+}
+
+.detail__information {
+  padding-left: 8.2rem;
+
+}
+
+.detail__information__collection {
+  @extend %description-12;
+
+  text-transform: uppercase;
+  margin-bottom: 3.2rem;
+}
+
+.detail__information__title {
+  @extend %title-120;
+  max-width: 60rem;
+}
+
+.detail__information__content {
+  padding-left: 18rem;
+}
+
+.detail__information__highlights {
+  @extend %description-16;
+  margin-top: 6rem;
+}
+
+.detail__information__hightlight {
+  display: flex;
+  align-items: center;
+
+  &:not(:first-child) {
+    margin-top: 4rem;
+  }
+}
+
+.detail__information__hightlight__icon {
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  margin-right: 3.7rem;
+  height: 4rem;
+  width: 4rem;
+}
+
+.detail__information__hightlight__text {
+  @extend %description-16;
+}
+
+.detail__information__list {
+  margin-top: 4rem;
+}
+
+.detail__information__item {
+  display: flex;
+
+  &:not(:first-child) {
+    margin-top: 4rem;
+  }
+}
+
+.detail__information__item__title {
+  @extend %description-12;
+
+  width: 10rem;
+  padding-right: 2.5rem;
+
+}
+
+.detail__information__item__description {
+  @extend %description-16;
+
+  max-width: 44rem;
+}
+
+.detail__information__link {
+  @extend %title-30;
+  margin-top: 3rem;
+  color: $color-white;
+  display: inline-block;
+}
+
+.detail__button {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 50%;
+  bottom: 5rem;
+  transform: translateX(-50%);
+  width: 12.4rem;
+  height: 6rem;
+  z-index: 2;
+}
+
+.detail__button__icon {
+  @extend %cover;
+}

@@ -15,6 +15,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(methodOverride())
 app.use(errorhandler())
+app.use(express.static(path.join(__dirname, 'public')))
 
 const Prismic = require('@prismicio/client')
 const PrismicDOM = require('prismic-dom')
@@ -28,29 +29,26 @@ const initApi = req => {
 
 // Link Resolver
 const handleLinkResolver = doc => {
-  if (doc.type ==='product') {
+  if (doc.type === 'product') {
     return `/detail/${doc.slug}`
   }
 
+  if (doc.type === 'collections') {
+    return '/collections'
+  }
 
   if (doc.type === 'about') {
-    return `/about`
+    return '/about'
   }
-  console.log(doc)
 
   return '/'
 }
 
 app.use((req, res, next) => {
-  // res.locals.ctx = {
-  //   endpoint: process.env.PRISMIC_ENDPOINT,
-  //   linkResolver: handleLinkResolver
-  // }
-
   res.locals.Link = handleLinkResolver
 
   res.locals.Numbers = index => {
-    return index == 0 ? 'One' : index == 1 ? 'Two' : index == 2 ? 'Three' : index == 3 ? 'Four' : ""
+    return index === 0 ? 'One' : index === 1 ? 'Two' : index === 2 ? 'Three' : index === 3 ? 'Four' : ""
   }
 
   res.locals.PrismicDOM = PrismicDOM
@@ -78,7 +76,7 @@ app.get('/', async (req, res) => {
   const defaults = await handleRequest(api)
   const home = await api.getSingle('home')
 
-  const {results: collections} = await api.query(Prismic.Predicates.at('document.type', 'collection'), {
+  const { results: collections } = await api.query(Prismic.Predicates.at('document.type', 'collection'), {
     fetchLinks: 'product.image'
   })
 
@@ -87,7 +85,7 @@ app.get('/', async (req, res) => {
   res.render('pages/home', {
     ...defaults,
     collections,
-    home,
+    home
   })
 })
 
@@ -95,6 +93,8 @@ app.get('/about', async (req, res) => {
   const api = await initApi(req)
   const defaults = await handleRequest(api)
   const about = await api.getSingle('about')
+
+  console.log(about.data.body)
 
   res.render('pages/about', {
     ...defaults,

@@ -1,11 +1,48 @@
+import GSAP from 'gsap'
+import each from 'lodash/each'
+
 export default class Page {
-  constructor ({ id }) {
-    console.log('Page')
+  constructor ({
+    element,
+    elements,
+    id
+  }) {
+    this.selector = element
+    this.selectorChildren = {
+      ...elements
+    }
 
     this.id = id
   }
 
   create () {
-    console.log('Create', this.id)
+    this.element = document.querySelector(this.selector)
+    this.elements = {}
+
+    each (this.selectorChildren, (entry, key) => {
+      if (entry instanceof window.HTMLElement || entry instanceof window.NodeList || Array.isArray(entry)) {
+        this.elements[key] = entry
+      } else {
+        this.elements[key] = document.querySelector(entry)
+
+        if (this.elements[key].length === 0) {
+          this.elements[key] = null
+        } else {
+          this.elements[key] = document.querySelector(entry)
+        }
+      }
+    })
+  }
+
+  show () {
+    GSAP.from(this.element, {
+      autoAlpha: 0,
+    })
+  }
+
+  hide () {
+    GSAP.to(this.element, {
+      autoAlpha: 0
+    })
   }
 }

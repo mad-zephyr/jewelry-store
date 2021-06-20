@@ -62,7 +62,6 @@ export default class Preloader extends Component {
         ease: 'expo.out',
         scaleY: 0,
         stagger: 0.1
-
       })
 
       this.animateOut.to(this.elements.numberText, {

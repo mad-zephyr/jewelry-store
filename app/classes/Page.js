@@ -11,7 +11,6 @@ export default class Page {
     this.selectorChildren = {
       ...elements
     }
-
     this.id = id
   }
 
@@ -36,21 +35,47 @@ export default class Page {
 
   show () {
     return new Promise(resolve => {
-      GSAP.fromTo(this.element, {
+      this.animationIn = GSAP.timeline()
+
+      this.animationIn.fromTo(this.element, {
         autoAlpha: 0
       }, {
-        autoAlpha: 1,
-        onComplete: resolve
+        autoAlpha: 1
+      })
+
+      this.animationIn.call(_ => {
+        this.addEventListeners()
+
+        resolve()
       })
     })
   }
 
   hide () {
     return new Promise(resolve => {
-      GSAP.to(this.element, {
+      this.removeEventListeners()
+
+      this.animationOut = GSAP.timeline()
+
+      this.animationOut.to(this.element, {
         autoAlpha: 0,
         onComplete: resolve
       })
     })
+  }
+
+  onMouseWheel (event) {
+    // console.log(event)
+    const { deltaY } = event
+
+    console.log(deltaY)
+  }
+
+  addEventListeners () {
+    window.addEventListener('mousewheel', this.onMouseWheel)
+  }
+
+  removeEventListeners () {
+    window.addEventListener('mousewheel', this.onMouseWheel)
   }
 }

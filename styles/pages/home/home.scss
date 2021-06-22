@@ -1,6 +1,6 @@
 .home {
-	@extend %cover;
 	@extend %center;
+  @extend %page;
 
 	// display: flex;
 	// display: none;
